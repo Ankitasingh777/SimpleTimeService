@@ -1,0 +1,16 @@
+from flask import Flask, jsonify
+import socket
+from datetime import datetime
+
+app = Flask(__name__)
+
+@app.route('/')
+def get_time():
+    # Get the current timestamp
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # Get the IP address of the visitor
+    ip_address = socket.gethostbyname(socket.gethostname())
+    return jsonify({"timestamp": timestamp, "ip": ip_address})
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=9000)
